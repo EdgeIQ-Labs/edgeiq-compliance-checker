@@ -1,0 +1,37 @@
+{
+  "tool": "xss_scanner",
+  "version": "1.0.0",
+  "scanned_at": "2026-04-23T10:15:00Z",
+  "target": "https://example.com",
+  "findings": [
+    {
+      "vulnerability": "Reflected XSS in Search Parameter",
+      "severity": "high",
+      "url": "https://example.com/search?q=test",
+      "parameter": "q",
+      "payload": "<script>alert(1)</script>",
+      "description": "User-supplied input in the 'q' parameter is reflected in the response without proper sanitization or encoding, allowing JavaScript execution.",
+      "evidence": "?q=<script>alert(document.cookie)</script>"
+    },
+    {
+      "vulnerability": "Stored XSS in Comment Field",
+      "severity": "critical",
+      "url": "https://example.com/blog/post/123",
+      "parameter": "comment",
+      "payload": "<img src=x onerror=alert(1)>",
+      "description": "Malicious HTML/JavaScript is stored in the comment field and executed when other users view the page. This affects all visitors to the page.",
+      "evidence": "Comment submitted containing <img src=x onerror=alert(1)> triggers on page load."
+    },
+    {
+      "vulnerability": "DOM-based XSS via #fragment",
+      "severity": "medium",
+      "url": "https://example.com/dashboard#tab=profile",
+      "parameter": "hash_fragment",
+      "payload": "#tab=<img src=x onerror=alert(1)>",
+      "description": "The client-side JavaScript reads the URL fragment and writes it to the DOM without sanitization, leading to script execution.",
+      "evidence": "window.location.hash is directly injected into innerHTML."
+    }
+  ],
+  "scan_duration_seconds": 47,
+  "total_requests": 312
+}

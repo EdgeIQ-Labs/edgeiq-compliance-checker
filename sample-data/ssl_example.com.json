@@ -1,0 +1,52 @@
+{
+  "tool": "ssl_watcher",
+  "version": "1.0.0",
+  "scanned_at": "2026-04-23T08:45:00Z",
+  "target": "example.com",
+  "domain": "example.com",
+  "ip": "93.184.216.34",
+  "port": 443,
+  "protocol_version": "TLS 1.2",
+  "cipher_suite": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+  "grade": "A",
+  "issuer": "Let's Encrypt Authority X3",
+  "valid_from": "2026-01-15T00:00:00Z",
+  "valid_until": "2026-04-15T23:59:59Z",
+  "days_until_expiry": -8,
+  "certificate_issues": [],
+  "security_headers": {
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "X-XSS-Protection": "1; mode=block",
+    "Content-Security-Policy": "default-src 'self'"
+  },
+  "issues": [
+    {
+      "title": "Certificate Expiring",
+      "severity": "critical",
+      "description": "SSL certificate expired 8 days ago. All HTTPS connections will fail or show warnings.",
+      "remediation": "Renew certificate immediately. Use Let's Encrypt or your CA to obtain a new certificate."
+    },
+    {
+      "title": "Insecure Cipher Suite",
+      "severity": "medium",
+      "description": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 is acceptable but consider disabling CBC-mode ciphers.",
+      "remediation": "Enable TLS 1.3 and disable legacy CBC ciphers in nginx config."
+    }
+  ],
+  "certificate_chain": [
+    {
+      "subject": "CN=example.com",
+      "issuer": "Let's Encrypt Authority X3",
+      "valid_from": "2026-01-15",
+      "valid_until": "2026-04-15"
+    },
+    {
+      "subject": "CN=Let's Encrypt Authority X3",
+      "issuer": "CN=DST Root CA X3",
+      "valid_from": "2016-03-17",
+      "valid_until": "2021-03-17"
+    }
+  ]
+}

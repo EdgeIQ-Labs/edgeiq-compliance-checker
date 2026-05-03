@@ -1,0 +1,75 @@
+{
+  "tool": "network_scanner",
+  "version": "1.0.0",
+  "scanned_at": "2026-04-23T09:30:00Z",
+  "target": "example.com",
+  "ip": "93.184.216.34",
+  "os": "Linux 4.15+",
+  "open_ports": [
+    {
+      "port": 22,
+      "protocol": "tcp",
+      "service": "ssh",
+      "version": "OpenSSH 8.2p1 Ubuntu 4ubuntu0.5",
+      "severity": "medium",
+      "risk": "SSH is exposed to the internet. Consider restricting via firewall or VPN."
+    },
+    {
+      "port": 80,
+      "protocol": "tcp",
+      "service": "http",
+      "version": "nginx 1.18.0",
+      "severity": "low",
+      "risk": "HTTP traffic is unencrypted."
+    },
+    {
+      "port": 443,
+      "protocol": "tcp",
+      "service": "https",
+      "version": "nginx 1.18.0",
+      "severity": "info",
+      "risk": "Standard secure web port."
+    },
+    {
+      "port": 3306,
+      "protocol": "tcp",
+      "service": "mysql",
+      "version": "MySQL 8.0.29",
+      "severity": "high",
+      "risk": "Database port exposed to the internet. This is a critical security risk."
+    }
+  ],
+  "cves": [
+    {
+      "cve_id": "CVE-2021-44228",
+      "description": "Log4j Remote Code Execution (Log4Shell)",
+      "cvss": 10.0,
+      "severity": "critical",
+      "affected_service": "log4j",
+      "remediation": "Upgrade Log4j to version 2.17.0 or later immediately."
+    },
+    {
+      "cve_id": "CVE-2022-12345",
+      "description": "OpenSSH 8.2p1 username enumeration",
+      "cvss": 7.8,
+      "severity": "high",
+      "affected_service": "ssh",
+      "remediation": "Upgrade OpenSSH to 9.0 or later. Restrict SSH access via firewall."
+    },
+    {
+      "cve_id": "CVE-2021-3450",
+      "description": "MySQL privilege escalation via native plug-in",
+      "cvss": 8.8,
+      "severity": "high",
+      "affected_service": "mysql",
+      "remediation": "Apply vendor patch. Do not expose port 3306 publicly."
+    }
+  ],
+  "service_versions": {
+    "ssh": "OpenSSH 8.2p1",
+    "http": "nginx 1.18.0",
+    "https": "nginx 1.18.0",
+    "mysql": "MySQL 8.0.29"
+  },
+  "scan_duration_seconds": 180
+}

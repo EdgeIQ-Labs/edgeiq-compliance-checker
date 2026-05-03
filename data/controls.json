@@ -1,0 +1,86 @@
+{
+  "framework": "SOC2 v1",
+  "version": "2017",
+  "controls": [
+    {
+      "id": "CC6.1",
+      "name": "Logical and Physical Access Controls",
+      "category": "Security",
+      "description": "Restrict logical and physical access to systems and data.",
+      "mapped_findings": ["ssl", "network", "security_headers"],
+      "scoring_logic": "fail_if_ssl_issues_or_open_ports",
+      "weight": 1,
+      "action_template": "Review access controls for exposed services and SSL configuration."
+    },
+    {
+      "id": "CC6.2",
+      "name": "Logical Access Controls",
+      "category": "Security",
+      "description": "Protect against unauthorized access to applications and data.",
+      "mapped_findings": ["xss", "injection"],
+      "scoring_logic": "fail_if_xss_or_injection",
+      "weight": 1,
+      "action_template": "Sanitize user inputs and implement WAF rules to block XSS/injection attacks."
+    },
+    {
+      "id": "CC6.6",
+      "name": "Security for Remote Computing",
+      "category": "Security",
+      "description": "Security controls must extend to remote access and mobile devices.",
+      "mapped_findings": ["network"],
+      "scoring_logic": "fail_if_open_admin_or_database_ports",
+      "weight": 1,
+      "action_template": "Close unnecessary ports. Restrict admin and database ports to VPN/firewall."
+    },
+    {
+      "id": "CC7.2",
+      "name": "Vulnerability Management",
+      "category": "Monitoring",
+      "description": "Identify and remediate security vulnerabilities on a timely basis.",
+      "mapped_findings": ["cves"],
+      "scoring_logic": "fail_if_critical_or_high_cves",
+      "weight": 1,
+      "action_template": "Apply patches for identified CVEs. Prioritize critical/high severity vulnerabilities."
+    },
+    {
+      "id": "CC8.1",
+      "name": "Change Management",
+      "category": "Operations",
+      "description": "Manage changes to infrastructure, applications, and configurations.",
+      "mapped_findings": ["subdomains"],
+      "scoring_logic": "warn_if_subdomain_enum_enabled",
+      "weight": 0.5,
+      "action_template": "Audit DNS records and subdomain configurations for unauthorized shadow resources."
+    },
+    {
+      "id": "A1",
+      "name": "Injection",
+      "category": "Application Security",
+      "description": "Prevent injection attacks including SQL, LDAP, OS command injection.",
+      "mapped_findings": ["xss", "sql_injection"],
+      "scoring_logic": "fail_if_any_injection_findings",
+      "weight": 1,
+      "action_template": "Use parameterized queries. Sanitize and validate all user-supplied input before processing."
+    },
+    {
+      "id": "A3",
+      "name": "Data Integrity",
+      "category": "Data Protection",
+      "description": "Ensure the integrity of data in transit and at rest.",
+      "mapped_findings": ["ssl"],
+      "scoring_logic": "fail_if_ssl_cert_expired_or_broken",
+      "weight": 1,
+      "action_template": "Renew expired SSL certificates. Enforce TLS 1.2+. Enable HSTS and fix certificate chain issues."
+    },
+    {
+      "id": "A5",
+      "name": "Logging and Monitoring",
+      "category": "Monitoring",
+      "description": "Detect, log, and respond to security events and anomalies.",
+      "mapped_findings": ["scan_coverage"],
+      "scoring_logic": "warn_if_low_scan_coverage",
+      "weight": 0.5,
+      "action_template": "Enable comprehensive security logging. Ensure scans cover all critical assets and subdomains."
+    }
+  ]
+}

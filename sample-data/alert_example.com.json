@@ -1,0 +1,60 @@
+{
+  "tool": "alerting_system",
+  "version": "1.0.0",
+  "period": "2026-04-01T00:00:00Z/2026-04-23T23:59:59Z",
+  "alerts": [
+    {
+      "id": "alert_001",
+      "title": "Port 3306 (MySQL) Opened on example.com",
+      "severity": "high",
+      "target": "example.com",
+      "timestamp": "2026-04-22T14:32:00Z",
+      "description": "Network scan detected port 3306 (MySQL) in an open state on 93.184.216.34. This port should not be internet-accessible.",
+      "source": "EdgeIQ Network Scanner",
+      "triggered_by": "new_open_port",
+      "acknowledged": false
+    },
+    {
+      "id": "alert_002",
+      "title": "SSL Certificate Expired on example.com",
+      "severity": "critical",
+      "target": "example.com",
+      "timestamp": "2026-04-15T23:59:59Z",
+      "description": "The SSL certificate for example.com expired on 2026-04-15. Visitors will see security warnings.",
+      "source": "EdgeIQ SSL Watcher",
+      "triggered_by": "certificate_expiry",
+      "acknowledged": false
+    },
+    {
+      "id": "alert_003",
+      "title": "Critical CVE-2021-44228 (Log4Shell) Detected",
+      "severity": "critical",
+      "target": "example.com",
+      "timestamp": "2026-04-20T09:10:00Z",
+      "description": "Log4j RCE vulnerability (CVSS 10.0) detected affecting service on example.com. Immediate patching required.",
+      "source": "EdgeIQ Network Scanner",
+      "triggered_by": "cve_detection",
+      "acknowledged": false
+    },
+    {
+      "id": "alert_004",
+      "title": "XSS Payload Detected in User Input",
+      "severity": "medium",
+      "target": "example.com",
+      "timestamp": "2026-04-18T16:45:00Z",
+      "description": "A stored XSS payload was detected in the comment field of blog.example.com. Payload: <img src=x onerror=alert(1)>.",
+      "source": "EdgeIQ XSS Scanner",
+      "triggered_by": "xss_finding",
+      "acknowledged": true
+    }
+  ],
+  "summary": {
+    "total_alerts": 4,
+    "critical": 2,
+    "high": 1,
+    "medium": 1,
+    "low": 0,
+    "acknowledged": 1,
+    "unacknowledged": 3
+  }
+}
