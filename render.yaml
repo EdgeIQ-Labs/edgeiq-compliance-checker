@@ -1,0 +1,16 @@
+services:
+  - name: edgeiq-compliance-checker
+    env: python
+    region: oregon
+    repo: https://github.com/EdgeIQ-Labs/edgeiq-compliance-checker
+    branch: master
+    pythonVersion: "3.11"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python src/server.py
+    healthCheckPath: /health
+    plan: free
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: SAMPLE_DIR
+        value: /app/sample-data
