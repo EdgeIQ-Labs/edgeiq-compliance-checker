@@ -468,8 +468,8 @@
 </div>
 
 <script>
-  const UPGRADE_URL = {{ json.dumps(upgrade_url) }};
-  const PORT = {{ PORT }};
+  const UPGRADE_URL = {{ upgrade_url|tojson }};
+  const PORT = {{ port|tojson }};
   const $ = (id) => document.getElementById(id);
   let currentData = null;
 
