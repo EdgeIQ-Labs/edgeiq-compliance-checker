@@ -468,7 +468,8 @@
 </div>
 
 <script>
-  const UPGRADE_URL = {{ upgrade_url|tojson }};
+  const UPGRADE_URL_ESSENTIAL = {{ upgrade_url_essential|tojson }};
+  const UPGRADE_URL_BUSINESS = {{ upgrade_url|tojson }};
   const PORT = {{ port|tojson }};
   const $ = (id) => document.getElementById(id);
   let currentData = null;
@@ -666,7 +667,8 @@
   });
 
   // Set upgrade URLs
-  document.querySelectorAll('a[id$="-link"], a[id$="-cta"]').forEach(a => { a.href = UPGRADE_URL; });
+  document.getElementById('upgrade-link').href = UPGRADE_URL_ESSENTIAL;
+  document.getElementById('pricing-cta').href = UPGRADE_URL_BUSINESS;
 
   // Run on enter
   $('domain').addEventListener('keydown', e => { if (e.key === 'Enter') loadCompliance(); });
@@ -677,4 +679,5 @@
 </script>
 </body>
 </html>
+
 
