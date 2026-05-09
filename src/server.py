@@ -14,7 +14,7 @@ PORT = int(os.getenv("PORT", "8114"))
 BASE_DIR = Path(__file__).resolve().parents[1]
 SAMPLE_DIR = BASE_DIR.parent / "edgeiq-smb-security-dashboard" / "sample-data"
 CONTROLS_FILE = BASE_DIR / "data" / "controls.json"
-UPGRADE_URL = "https://edgeiqlabs.com/#pricing"
+UPGRADE_URL = os.getenv("UPGRADE_URL", "https://buy.stripe.com/3cI28tcuf6d76w42cg7wA20")
 
 app = Flask(__name__, template_folder=str(BASE_DIR / "templates"))
 
