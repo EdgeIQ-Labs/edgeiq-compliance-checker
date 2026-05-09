@@ -14,7 +14,8 @@ PORT = int(os.getenv("PORT", "8114"))
 BASE_DIR = Path(__file__).resolve().parents[1]
 SAMPLE_DIR = BASE_DIR.parent / "edgeiq-smb-security-dashboard" / "sample-data"
 CONTROLS_FILE = BASE_DIR / "data" / "controls.json"
-UPGRADE_URL = os.getenv("UPGRADE_URL", "https://buy.stripe.com/3cI28tcuf6d76w42cg7wA2O")
+UPGRADE_URL_ESSENTIAL = os.getenv("UPGRADE_URL_ESSENTIAL", "https://buy.stripe.com/eVq3caxm70V9Ig5o7wA2N")
+UPGRADE_URL_BUSINESS = os.getenv("UPGRADE_URL_BUSINESS", "https://buy.stripe.com/3cI28tcuf6d76w42cg7wA2O")
 
 app = Flask(__name__, template_folder=str(BASE_DIR / "templates"))
 
@@ -351,7 +352,8 @@ def api_compliance():
 @app.route("/")
 def index():
     return render_template("index.html",
-        upgrade_url=UPGRADE_URL,
+        upgrade_url=UPGRADE_URL_BUSINESS,
+        upgrade_url_essential=UPGRADE_URL_ESSENTIAL,
         port=PORT,
     )
 
