@@ -239,6 +239,7 @@ def _evaluate_a5(domain, findings):
 
 
 EVALUATORS = {
+    # SOC 2
     "CC6.1": _evaluate_cc61,
     "CC6.2": _evaluate_cc62,
     "CC6.6": _evaluate_cc66,
@@ -247,6 +248,18 @@ EVALUATORS = {
     "A1":    _evaluate_a1,
     "A3":   _evaluate_a3,
     "A5":   _evaluate_a5,
+    # HIPAA Security Rule
+    "164.312(a)(1)": _evaluate_cc61,
+    "164.312(c)(1)": _evaluate_a3,
+    "164.308(a)(5)": _evaluate_cc72,
+    # PCI-DSS 4.0
+    "Req 1": _evaluate_cc61,
+    "Req 6": _evaluate_cc62,
+    "Req 11": _evaluate_cc72,
+    # ISO 27001
+    "A.13.1": _evaluate_cc61,
+    "A.12.6": _evaluate_cc72,
+    "A.14.2": _evaluate_a1,
 }
 
 
@@ -286,14 +299,10 @@ def _compute_compliance_score(domain, controls):
 
 def _ctrl_finding_types(ctrl):
     mapping = {
-        "CC6.1": ["ssl", "port"],
-        "CC6.2": ["xss"],
-        "CC6.6": ["port"],
-        "CC7.2": ["cve"],
-        "CC8.1": [],
-        "A1":    ["xss", "sql_injection"],
-        "A3":   ["ssl"],
-        "A5":   [],
+        "CC6.1": ["ssl", "port"], "CC6.2": ["xss"], "CC6.6": ["port"], "CC7.2": ["cve"], "CC8.1": [], "A1": ["xss", "sql_injection"], "A3": ["ssl"], "A5": [],
+        "164.312(a)(1)": ["ssl", "port"], "164.312(c)(1)": ["ssl", "xss"], "164.308(a)(5)": ["cve"],
+        "Req 1": ["port"], "Req 6": ["xss", "sql_injection"], "Req 11": ["cve"],
+        "A.13.1": ["ssl", "port"], "A.12.6": ["cve"], "A.14.2": ["xss", "sql_injection"],
     }
     return mapping.get(ctrl["id"], [])
 
@@ -312,15 +321,13 @@ def api_compliance():
 
     # Load controls
     try:
-        controls = json.loads(CONTROLS_FILE.read_text())["controls"]
+        all_data = json.loads(CONTROLS_FILE.read_text())
+        target_schema = all_data.get(framework)
+        if not target_schema:
+            return jsonify({"error": "invalid_framework", "message": "Framework not supported."}), 400
+        controls = target_schema["controls"]
     except Exception:
         return jsonify({"error": "failed_to_load_controls", "message": "Could not load controls data."}), 500
-
-    # Filter by framework stub
-    if framework == "soc2":
-        controls = [c for c in controls]  # all controls for now
-    else:
-        controls = [c for c in controls]  # stub: serve all; expand later
 
     findings = _collect_findings(domain)
     score, grade, results = _compute_compliance_score(domain, controls)
